@@ -1,0 +1,625 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --pacman-yellow: #ffcc00;
+  --ghost-blue: #00ffde;
+  --ghost-red: #ff0000;
+  --ghost-pink: #ffb8de;
+  --ghost-orange: #ffb847;
+  --maze-blue: #2121ff;
+  --background: #000;
+  --text: #fff;
+  --button-bg: #2121ff;
+  --button-border: #00ffde;
+  --button-text: #fff;
+  --button-hover: #4545ff;
+  --instructions-button-bg: #ff0000;
+  --instructions-button-border: #ffcc00;
+  --instructions-button-hover: #cc0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Press Start 2P", cursive;
+  background-color: var(--background);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.game-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Intro Screen */
+.intro-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background);
+  z-index: 100;
+}
+
+.logo-container {
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.main-title {
+  font-size: min(32px, 5vw);
+  color: var(--pacman-yellow);
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+  text-shadow: 4px 4px 0 rgba(0, 0, 255, 0.5);
+}
+
+/* Completely redesigned intro animation system */
+.pacman-animation {
+  position: relative;
+  height: 120px;
+  width: 100%;
+  margin: 30px 0;
+  overflow: hidden;
+}
+
+.animation-track {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* Pacman character */
+.pacman-character {
+  position: absolute;
+  font-size: 40px;
+  top: 40px;
+  left: -60px;
+  z-index: 10;
+  animation: moveCharacterAcross 4s linear infinite;
+}
+
+/* Ghost characters with staggered entrances */
+.ghost-character {
+  position: absolute;
+  font-size: 40px;
+  top: 40px;
+  left: -60px;
+}
+
+.ghost-1 {
+  color: var(--ghost-blue);
+  animation: moveCharacterAcross 4s linear infinite 0.5s;
+}
+
+.ghost-2 {
+  color: var(--ghost-red);
+  animation: moveCharacterAcross 4s linear infinite 1s;
+}
+
+.ghost-3 {
+  color: var(--ghost-pink);
+  animation: moveCharacterAcross 4s linear infinite 1.5s;
+}
+
+.ghost-4 {
+  color: var(--ghost-orange);
+  animation: moveCharacterAcross 4s linear infinite 2s;
+}
+
+/* Shared movement animation for all characters */
+@keyframes moveCharacterAcross {
+  0% {
+    left: -60px;
+  }
+  100% {
+    left: calc(100% + 60px);
+  }
+}
+
+.subtitle {
+  font-size: min(14px, 3vw);
+  color: var(--text); /* Changed from var(--maze-blue) to var(--text) which is white */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.start-prompt {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: min(20px, 4vw);
+  color: var(--text);
+  animation: blink 1s infinite alternate;
+}
+
+.retro-button-style {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 3px solid var(--button-border);
+  padding: 15px 25px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.retro-button-style:hover {
+  background-color: var(--button-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.retro-button-style:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.intro-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Instructions button styling */
+.instructions-button {
+  background-color: transparent;
+  border-color: white;
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 12px 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.instructions-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Retro button style */
+.retro-button {
+  font-family: "Press Start 2P", cursive;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 3px solid var(--button-border);
+  padding: 10px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.retro-button:hover {
+  background-color: var(--button-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.retro-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.large-button {
+  padding: 15px 25px !important;
+  font-size: 16px !important;
+  margin-top: 20px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Game Screen */
+.game-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 80px;
+}
+
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-size: 20px;
+  color: var(--pacman-yellow);
+}
+
+.game-board {
+  flex: 1;
+  display: grid;
+  margin: 0 auto;
+  width: min(900px, 95vw);
+  max-height: calc(100vh - 160px);
+  aspect-ratio: 20 / 15;
+  background-color: var(--background);
+  border: 2px solid var(--maze-blue);
+  overflow: hidden;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background);
+  position: relative;
+}
+
+.wall {
+  background-color: transparent;
+  position: relative;
+}
+
+.wall::before {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  background-color: var(--maze-blue);
+  border-radius: 2px;
+}
+
+.dot {
+  font-size: 12px; /* Increased from 8px */
+  color: var(--text);
+}
+
+/* Power pellet with white glow (food emojis) instead of red */
+.power-pellet {
+  font-size: 20px;
+  animation: pulsate 0.5s infinite alternate;
+  text-shadow: 0 0 8px #fff, 0 0 12px #fff, 0 0 16px #fff;
+}
+
+/* Update the pacman-active animation for a more subtle pulsing effect */
+.pacman-active {
+  font-size: 32px;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: subtlePulse 1s infinite alternate;
+}
+
+/* Add subtle pulse animation for gameplay ghosts */
+.ghost {
+  font-size: 32px;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: subtlePulse 1s infinite alternate;
+}
+
+.fruit {
+  font-size: 20px;
+}
+
+/* Add styles for the bonus items with blue glow (fruit emojis) */
+.bonus-item {
+  font-size: 24px;
+  z-index: 5;
+  text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f;
+  animation: subtlePulse 1s infinite alternate;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 80px;
+}
+
+.lives {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lives-icons {
+  color: var(--pacman-yellow);
+  letter-spacing: 2px;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.controls-row {
+  display: flex;
+  gap: 20px;
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  background-color: var(--button-bg);
+  border: 3px solid var(--button-border);
+  border-radius: 10px;
+  color: var(--button-text);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.control-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  background-color: var(--button-hover);
+}
+
+.pause-btn {
+  background-color: var(--ghost-red);
+  border-color: var(--button-border);
+}
+
+.pause-btn:active {
+  background-color: #cc0000;
+}
+
+/* Overlay Screens */
+.overlay-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.overlay-content {
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 3px solid var(--maze-blue);
+  padding: 30px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.overlay-content h2 {
+  font-size: 32px;
+  color: var(--pacman-yellow);
+  margin-bottom: 30px;
+}
+
+.overlay-content p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+/* Instructions Screen */
+.instructions-content {
+  max-width: 600px;
+}
+
+.instructions-section {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.instructions-section h3 {
+  color: var(--ghost-blue);
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.instructions-section p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Pause Screen */
+.pause-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.pause-content {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 3px solid var(--maze-blue);
+  padding: 30px;
+}
+
+.pause-content h2 {
+  font-size: 32px;
+  color: var(--pacman-yellow);
+  margin-bottom: 30px;
+}
+
+.pause-content p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+.pause-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Scanlines effect */
+.game-wrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0.2;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+  }
+
+  .header,
+  .footer {
+    padding: 10px;
+    height: 60px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .value {
+    font-size: 16px;
+  }
+
+  .game-board {
+    max-height: calc(100vh - 120px - 180px); /* Account for mobile controls */
+  }
+
+  .retro-button {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .instructions-section h3 {
+    font-size: 16px;
+  }
+
+  .instructions-section p {
+    font-size: 12px;
+  }
+}
+
+/* Animations */
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* More subtle pulse animation for gameplay */
+@keyframes subtlePulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.cell {
+  animation: appear 0.3s ease-out;
+}
