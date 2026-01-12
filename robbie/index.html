@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robert Byron Jones</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😮</text></svg>">
+</head>
+<body>
+  <div class="game-wrapper">
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="intro-screen">
+      <div class="logo-container">
+        <h1 class="main-title">ROBERT BYRON JONES</h1>
+        <div class="pacman-animation">
+          <div class="animation-track">
+            <div class="pacman-character" id="intro-pacman">😮</div>
+            <div class="ghost-character ghost-1">👻</div>
+            <div class="ghost-character ghost-2">👹</div>
+            <div class="ghost-character ghost-3">🤖</div>
+            <div class="ghost-character ghost-4">👾</div>
+          </div>
+        </div>
+        <div class="start-prompt retro-button-style">
+          <p>PRESS ENTER TO START</p>
+        </div>
+        <p class="subtitle">SITE COMING SOON</p>
+      </div>
+    </div>
+    
+    <!-- Game Screen -->
+    <div id="game-screen" class="game-screen" style="display: none;">
+      <div class="header">
+        <div class="score-container">
+          <span class="label">SCORE</span>
+          <span id="score" class="value">0</span>
+        </div>
+        <div class="score-container">
+          <span class="label">HIGH SCORE</span>
+          <span id="high-score" class="value">0</span>
+        </div>
+      </div>
+      
+      <div id="game-board" class="game-board"></div>
+      
+      <div class="footer">
+        <div class="lives">
+          <span class="label">LIVES:</span>
+          <span id="lives" class="lives-icons">😮 😮 😮</span>
+        </div>
+      </div>
+      
+      <!-- Mobile Controls -->
+      <div id="mobile-controls" class="mobile-controls">
+        <div class="controls-row">
+          <button id="up-btn" class="control-btn">▲</button>
+        </div>
+        <div class="controls-row">
+          <button id="left-btn" class="control-btn">◄</button>
+          <button id="mobile-pause-btn" class="control-btn pause-btn">⏸</button>
+          <button id="right-btn" class="control-btn">►</button>
+        </div>
+        <div class="controls-row">
+          <button id="down-btn" class="control-btn">▼</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="pause-screen">
+      <div class="pause-content">
+        <h2>PAUSED</h2>
+        <p>PRESS SPACE TO RESUME</p>
+        <div class="pause-buttons">
+          <button id="resume-btn" class="retro-button" onclick="togglePause()">RESUME</button>
+          <button id="instructions-pause-btn" class="retro-button" onclick="showInstructions()">INSTRUCTIONS</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Instructions Screen -->
+    <div id="instructions-screen" class="overlay-screen" style="display: none;">
+      <div class="overlay-content instructions-content">
+        <h2>HOW TO PLAY</h2>
+        
+        <div class="instructions-section">
+          <h3>KEYBOARD CONTROLS</h3>
+          <p>ARROW KEYS or WASD: Move Pacman</p>
+          <p>SPACE: Pause/Resume Game</p>
+          <p>M: Toggle Sound</p>
+          <p>I: Show Instructions</p>
+        </div>
+        
+        <div class="instructions-section">
+          <h3>MOBILE CONTROLS</h3>
+          <p>TAP ARROWS: Move Pacman</p>
+          <p>TAP II: Pause/Resume Game</p>
+        </div>
+        
+        <div class="instructions-section">
+          <h3>OBJECTIVE</h3>
+          <p>Eat all dots to win</p>
+          <p>Avoid ghosts unless in power mode</p>
+          <p>Collect power pellets (🍔🍕🌮🍟) to enter power mode</p>
+          <p>In power mode, you can eat ghosts for extra points</p>
+        </div>
+        
+        <button id="close-instructions-btn" class="retro-button">CLOSE</button>
+      </div>
+    </div>
+    
+    <!-- Life Lost Screen -->
+    <div id="life-lost-screen" class="overlay-screen" style="display: none;">
+      <div class="overlay-content">
+        <h2>OUCH!</h2>
+        <p id="lives-remaining-text">LIVES REMAINING: 2</p>
+        <p>GET READY...</p>
+      </div>
+    </div>
+    
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="overlay-screen" style="display: none;">
+      <div class="overlay-content">
+        <h2>GAME OVER</h2>
+        <p>FINAL SCORE: <span id="final-score">0</span></p>
+        <button class="retro-button large-button" onclick="startGame()">PLAY AGAIN</button>
+      </div>
+    </div>
+    
+    <!-- Win Screen -->
+    <div id="win-screen" class="overlay-screen" style="display: none;">
+      <div class="overlay-content">
+        <h2>YOU WIN!</h2>
+        <button class="retro-button large-button" onclick="startGame()">PLAY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio elements -->
+  <audio id="start-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_beginning.wav" type="audio/wav">
+  </audio>
+  <audio id="chomp-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_chomp.wav" type="audio/wav">
+  </audio>
+  <audio id="death-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_death.wav" type="audio/wav">
+  </audio>
+  <audio id="power-pellet-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_eatfruit.wav" type="audio/wav">
+  </audio>
+  <audio id="eat-ghost-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_eatghost.wav" type="audio/wav">
+  </audio>
+  <audio id="win-sound" preload="auto">
+    <source src="https://assets.codepen.io/21542/pacman_intermission.wav" type="audio/wav">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
