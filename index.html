@@ -1,4 +1,4 @@
-<!DOCTYPE html><!--  Last Published: Sun Jan 11 2026 04:05:39 GMT+0000 (Coordinated Universal Time)  -->
+<!DOCTYPE html><!--  Last Published: Sun Feb 01 2026 04:47:04 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="6934cc24b053778bf74b4d54" data-wf-site="6934cc23b053778bf74b4d39">
 <head>
   <meta charset="utf-8">
@@ -19,6 +19,25 @@
   <link href="images/webclip.jpg" rel="apple-touch-icon">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
+  /* --- Base Styles (Desktop > 991px) --- */
+  /* 1. Default state for all viewports */
+  a.stay, .stay {
+      color: #788cd3 !important;
+      text-decoration: none;
+  }
+  /* 2. Desktop Hover state */
+  a.stay:hover, .stay:hover {
+      color: #e17387 !important;
+  }
+  /* --- Mobile/Tablet Styles (991px and below) --- */
+  @media (max-width: 991px) {
+      /* 3. Mobile/Tablet Hover state override */
+      a.stay:hover, .stay:hover {
+          color: #141824 !important;
+      }
+  }
+</style>
+  <style>
   /* Reset */
   .gmap-module-container * {
     box-sizing: border-box;
@@ -28,7 +47,9 @@
   .gmap-module-container {
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
+    display: block; 
     width: 100%;
+    min-width: 100%; 
     max-width: 100%;
     margin: 0 auto;
     color: #141824;
@@ -38,7 +59,6 @@
   .gmap-location-card {
     display: flex;
     width: 100%;
-    /* Align items center prevents the image from stretching weirdly in tablet mode */
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 12px;
@@ -47,8 +67,7 @@
     background: #fff !important; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
-  /* IMAGE WRAPPER - DEFAULT (Tablet/Middle) 
-     This reverts to the 140px square look for viewports under 992px. */
+  /* IMAGE WRAPPER */
   .gmap-thumb-wrapper {
     width: 140px;
     height: 140px; 
@@ -110,20 +129,17 @@
     margin-top: 12px;
     width: 100%;
   }
-  /* =========================================
-      BUTTON STYLES
-      ========================================= */
+  /* BUTTON STYLES (Standard Pink) */
   .gmap-module-container .gmap-btn {
     display: flex; 
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8rem; 
     font-size: 0.85rem;
     font-weight: 700;
     margin: 0 !important; 
-    /* Default (Tablet): 50% split logic */
     flex: 1 0 calc(50% - 4px);
     min-width: 200px; 
     text-align: center;
@@ -132,16 +148,11 @@
     background-color: #e17387 !important;
     color: #141824 !important;
   }
-  /* Spacer for tablet view */
-  .gmap-btn-spacer {
-    flex: 1 0 calc(50% - 4px);
-    height: 0;
-    visibility: hidden;
-  }
   .gmap-module-container .gmap-btn:hover {
     background-color: #313a57 !important;
     color: #e17387 !important;
   }
+  /* SPECIAL 'BOOK NOW' BUTTON (Blue Variant) */
   .gmap-module-container .gmap-btn.book-now {
     background-color: #788cd3 !important;
     color: #141824 !important;
@@ -150,20 +161,44 @@
     background-color: #313a57 !important;
     color: #788cd3 !important;
   }
-  /* =========================================
-      RESPONSIVE BREAKPOINTS
-      ========================================= */
-  /* DESKTOP (992px+) 
-     This applies the "Large Image Stretch" layout */
+  /* Spacer for tablet view */
+  .gmap-btn-spacer {
+    flex: 1 0 calc(50% - 4px);
+    height: 0;
+    visibility: hidden;
+  }
+  /* SEE MORE BUTTON STYLES */
+  .gmap-toggle-wrapper {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+  }
+  .gmap-toggle-btn {
+    background-color: #313a57; 
+    color: #ffffff;             
+    border: 2px solid #313a57;  
+    padding: 12px 30px;
+    border-radius: 8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+  }
+  .gmap-toggle-btn:hover {
+    background: #788cd3; 
+    border-color: #788cd3;
+    color: #fff;
+  }
+  /* RESPONSIVE BREAKPOINTS */
   @media (min-width: 992px) {
     .gmap-location-card { 
         padding: 24px;
         min-height: 220px;
-        align-items: stretch; /* Switch back to stretch for desktop */
+        align-items: stretch; 
     }
     .gmap-thumb-wrapper {
       width: 340px; 
-      /* Height auto + align-self stretch = Fills the height of the card */
       height: auto; 
       align-self: stretch; 
       margin-right: 32px;
@@ -171,8 +206,6 @@
     }
     .gmap-name { font-size: 1.4rem; }
   }
-  /* MOBILE (550px-) 
-     This applies the "Stacked" layout */
   @media (max-width: 550px) {
     .gmap-location-card {
       flex-direction: column;
@@ -198,6 +231,19 @@
     }
   }
 </style>
+  <script>
+  function toggleGmapHotels() {
+    var moreHotels = document.getElementById("gmap-more-hotels");
+    var btn = document.getElementById("gmap-toggle-btn");
+    if (moreHotels.style.display === "none") {
+      moreHotels.style.display = "block";
+      btn.innerHTML = "Show Less";
+    } else {
+      moreHotels.style.display = "none";
+      btn.innerHTML = "See More Hotels";
+    }
+  }
+</script>
 </head>
 <body class="body">
   <div class="site-container">
@@ -211,7 +257,7 @@
         </div>
         <nav role="navigation" class="nav-menu w-nav-menu">
           <a href="https://withjoy.com/oliviaandrobbie/rsvp" target="_blank" class="rsvp w-nav-link">RSVP</a>
-          <a href="#where-to-stay" class="stay w-nav-link">Where to Stay</a>
+          <a id="stay" href="#where-to-stay" class="stay w-nav-link">Where to Stay</a>
           <a href="https://withjoy.com/oliviaandrobbie/registry" target="_blank" class="registry w-nav-link">Registry</a>
         </nav>
       </div>
@@ -223,7 +269,7 @@
           <div class="heading-date-location">
             <h1 class="heading">Olivia &amp; Robbie</h1>
             <a id="rsvp-button" href="https://withjoy.com/oliviaandrobbie/rsvp" target="_blank" class="rsvp-button w-inline-block">
-              <div class="text-block">RSVP</div>
+              <div class="rsvp-button-text">RSVP</div>
             </a>
             <div class="details">
               <div class="date">June 13, 2026</div>
@@ -250,7 +296,7 @@
                 <a href="https://www.pickrosehillfarm.com/" target="_blank" class="link">Rose Hill Farm</a> is a historic pick-your-own fruit orchard located in Red Hook, New York. <br>
               </p>
               <p class="paragraph">Rose Hill grows cherries, blueberries, plums, apricots, peaches, and apples, which they also use to make natural wines and ciders.<br></p>
-              <p class="paragraph">Robbie and Olivia have spent countless weekends picking fruit at the farm, and since 2021, Olivia has taught a weekly yoga class under the orchard&#x27;s beautiful and exceptionally wise willow tree. </p>
+              <p class="paragraph">Robbie and Olivia have spent countless weekends picking fruit at the farm, and since 2021, Olivia has taught a weekly yoga class under the orchard&#x27;s beautiful and wise willow tree. </p>
               <p class="paragraph">This farm is one of Olivia and Robbie&#x27;s favorite places and the perfect place to celebrate their wedding.</p>
             </div>
           </div>
@@ -288,12 +334,25 @@
           </div>
         </div>
       </div>
+      <section id="where-to-stay" class="the-day">
+        <div class="the-day-container">
+          <div class="the-day-module">
+            <div class="the-day-content">
+              <h2 class="heading-2">The Day</h2>
+              <div class="wedding-day">
+                <p class="wedding-day-right">6:00 PM<br>6:30 PM<br>7:30 PM<br></p>
+                <p class="wedding-day-left">Ceremony | Willow Tree<br>Cocktail Hour | Tent<br>Reception | Tap Room<br></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="where-to-stay" class="where-to-stay">
         <div class="hotel-container">
           <div class="accomodations">
             <div class="where-to-stay-cont">
               <h2 class="heading-2">Where to Stay</h2>
-              <p class="paragraph">We currently have a hotel block with the Beekman Arms Hotel, which fun fact, is the oldest continuously operated inn in America—George Washington stayed there! We have a discount code, <strong>PELUS260612-202711</strong>, which should work when you click the link. <strong>IMPORTANT:</strong> Do not change the number of adults in the room, this should stay as 1, regardless of your party size.<br></p>
+              <p class="paragraph">We have a hotel block with the Beekman Arms Inn, the oldest continuously operated inn in America—George Washington stayed there! Our discount code, <strong>PELUS260612-202711</strong>, which should work when you click the link. <strong>IMPORTANT:</strong> Do not change the number of adults; keep it at 1, regardless of your party size.<br></p>
               <div class="code-embed w-embed">
                 <div class="gmap-module-container">
                   <div class="gmap-location-card">
@@ -310,7 +369,7 @@
                       </div>
                       <div class="gmap-actions">
                         <a href="https://beekmandelamaterinn.ibe.stayntouch.com/search-results?checkin=06-12-2026&checkout=06-14-2026&adults=1&kids=0&groupCode=PELUS260612-202711" target="_blank" class="gmap-btn book-now">
-                          Book Now with Discount
+                          Book Now with Discount Code
                         </a>
                         <a href="https://maps.app.goo.gl/jEntBoDDyTXe4CEt7" target="_blank" class="gmap-btn">View on Google Maps</a>
                       </div>
@@ -324,24 +383,6 @@
               <p class="paragraph">The Hudson Valley has so many wonderful places to stay nearby, from Kingston, Tivoli, Germantown, and Hyde Park. We&#x27;ve put together a few other other hotels in Rhinebeck and Red Hook below, but definitely feel free to check out other options, including Airbnb for your Upstate weekend with us.<br></p>
               <div class="code-embed w-embed">
                 <div class="gmap-module-container">
-                  <div class="gmap-location-card">
-                    <div class="gmap-thumb-wrapper">
-                      <img src="images/rhinebeck-motel.jpg" class="gmap-thumb" alt="Rhinebeck Motel">
-                    </div>
-                    <div class="gmap-details">
-                      <div class="gmap-text-content">
-                        <p class="gmap-name">Rhinebeck Motel</p>
-                        <p class="gmap-address">6938 US-9, Rhinebeck, NY 12572</p>
-                        <p class="gmap-phone">
-                          <a href="tel:8458765900">(845) 876-5900</a>
-                        </p>
-                      </div>
-                      <div class="gmap-actions">
-                        <a href="https://maps.app.goo.gl/BXvJYVtng2kULXxTA" target="_blank" class="gmap-btn">View on Google Maps</a>
-                        <div class="gmap-btn-spacer"></div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="gmap-location-card">
                     <div class="gmap-thumb-wrapper">
                       <img src="images/mirbeau-spa.jpg" class="gmap-thumb" alt="Mirbeau Inn">
@@ -378,23 +419,64 @@
                       </div>
                     </div>
                   </div>
-                  <div class="gmap-location-card">
-                    <div class="gmap-thumb-wrapper">
-                      <img src="images/reclaimed-motel.jpg" class="gmap-thumb" alt="Reclaimed Motel">
-                    </div>
-                    <div class="gmap-details">
-                      <div class="gmap-text-content">
-                        <p class="gmap-name">Reclaimed Motel</p>
-                        <p class="gmap-address">7958 Albany Post Rd, Red Hook, NY 12571</p>
-                        <p class="gmap-phone">
-                          <a href="tel:8457581324">(845) 758-1324</a>
-                        </p>
+                  <div id="gmap-more-hotels" style="display: none;">
+                    <div class="gmap-location-card">
+                      <div class="gmap-thumb-wrapper">
+                        <img src="images/rhinebeck-motel.jpg" class="gmap-thumb" alt="Rhinebeck Motel">
                       </div>
-                      <div class="gmap-actions">
-                        <a href="https://maps.app.goo.gl/oSiaEB977YxsR3G97" target="_blank" class="gmap-btn">View on Google Maps</a>
-                        <div class="gmap-btn-spacer"></div>
+                      <div class="gmap-details">
+                        <div class="gmap-text-content">
+                          <p class="gmap-name">Rhinebeck Motel</p>
+                          <p class="gmap-address">6938 US-9, Rhinebeck, NY 12572</p>
+                          <p class="gmap-phone">
+                            <a href="tel:8458765900">(845) 876-5900</a>
+                          </p>
+                        </div>
+                        <div class="gmap-actions">
+                          <a href="https://maps.app.goo.gl/BXvJYVtng2kULXxTA" target="_blank" class="gmap-btn">View on Google Maps</a>
+                          <div class="gmap-btn-spacer"></div>
+                        </div>
                       </div>
                     </div>
+                    <div class="gmap-location-card">
+                      <div class="gmap-thumb-wrapper">
+                        <img src="images/reclaimed-motel.jpg" class="gmap-thumb" alt="Reclaimed Motel">
+                      </div>
+                      <div class="gmap-details">
+                        <div class="gmap-text-content">
+                          <p class="gmap-name">Reclaimed Motel</p>
+                          <p class="gmap-address">7958 Albany Post Rd, Red Hook, NY 12571</p>
+                          <p class="gmap-phone">
+                            <a href="tel:8457581324">(845) 758-1324</a>
+                          </p>
+                        </div>
+                        <div class="gmap-actions">
+                          <a href="https://maps.app.goo.gl/oSiaEB977YxsR3G97" target="_blank" class="gmap-btn">View on Google Maps</a>
+                          <div class="gmap-btn-spacer"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="gmap-location-card">
+                      <div class="gmap-thumb-wrapper">
+                        <img src="images/baker-house.jpg" class="gmap-thumb" alt="Baker House">
+                      </div>
+                      <div class="gmap-details">
+                        <div class="gmap-text-content">
+                          <p class="gmap-name">The Baker House B&B</p>
+                          <p class="gmap-address">65 W Market St, Rhinebeck, NY 12572</p>
+                          <p class="gmap-phone">
+                            <a href="tel:8458764477">(845) 876-4477</a>
+                          </p>
+                        </div>
+                        <div class="gmap-actions">
+                          <a href="https://maps.app.goo.gl/WDvXkBMSZgALrsgQA" target="_blank" class="gmap-btn">View on Maps</a>
+                          <div class="gmap-btn-spacer"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="gmap-toggle-wrapper">
+                    <button id="gmap-toggle-btn" class="gmap-toggle-btn" onclick="toggleGmapHotels()">See More Hotels</button>
                   </div>
                 </div>
               </div>
@@ -405,11 +487,11 @@
       <section id="registry" class="registry-module">
         <div class="registry-container">
           <div class="registry-inner">
-            <div class="where-to-stay-cont">
-              <h2 class="heading-2">Registry</h2>
+            <div class="div-block-2">
+              <a id="rsvp-button" href="https://withjoy.com/oliviaandrobbie/registry" target="_blank" class="registry-button w-inline-block">
+                <div class="text-block">View Our Registry</div>
+              </a>
             </div>
-            <div class="code-embed-2 w-embed w-iframe"><iframe src="https://withjoy.com/oliviaandrobbie/registry" title="Olivia and Robbie's Registry via WithJoy" width="100%" height="100%" style="border: none; max-width: 100%; border-radius: 1rem;" allowfullscreen="" loading="lazy">
-              </iframe></div>
           </div>
         </div>
       </section>
